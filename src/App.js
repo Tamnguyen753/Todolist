@@ -3,28 +3,22 @@ import "./App.css";
 import { Button, Checkbox } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(localStorage.getItem("tasks") ? JSON.parse(localStorage.getItem("tasks")) : []);
   const [newTask, setNewTask] = useState("");
   const [filter, setFilter] = useState("All");
   const [activeButton, setActiveButton] = useState("All");
 
   useEffect(() => {
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
-    }
-  }, []);
-
-  useEffect(() => {
-    if(tasks.length >0){
+    {
     localStorage.setItem("tasks", JSON.stringify(tasks))
   };
-  console.log(tasks);
   }, [tasks]);
   const addTask = () => {
     if (newTask.trim() !== "") {
       setTasks([...tasks, { id: Date.now(), text: newTask, completed: false }]);
+      localStorage.setItem("tasks", JSON.stringify(tasks))
       setNewTask("");
+
     }
   };
   const toggleTask = (id) => {
