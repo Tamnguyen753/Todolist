@@ -16,26 +16,15 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if(tasks){
+    if(tasks.length >0){
     localStorage.setItem("tasks", JSON.stringify(tasks))
   };
   console.log(tasks);
   }, [tasks]);
-
-  // useEffect(() => {
-  //   try {
-  //     // Lưu dữ liệu vào local storage
-  //     localStorage.setItem("tasks", JSON.stringify(tasks));
-  //   } catch (error) {
-  //     // Xử lý lỗi khi lưu dữ liệu
-  //     console.error("Lỗi khi lưu dữ liệu vào local storage:", error);
-  //   }
-  // }, [tasks]);
-
   const addTask = () => {
     if (newTask.trim() !== "") {
       setTasks([...tasks, { id: Date.now(), text: newTask, completed: false }]);
-      // setNewTask("");
+      setNewTask("");
     }
   };
   const toggleTask = (id) => {
